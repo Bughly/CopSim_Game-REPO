@@ -70,9 +70,6 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.drag = 0;
         }
-
-        Debug.Log(rb.velocity.magnitude);
-        Debug.Log(sprinting);
     }
 
     private void FixedUpdate()
@@ -86,7 +83,7 @@ public class PlayerMovement : MonoBehaviour
         verticalInput = Input.GetAxisRaw("Vertical");
 
         // When to jump
-        if(Input.GetKey(jumpKey) && readyToJump && grounded)
+        if(Input.GetKeyDown(jumpKey) && readyToJump && grounded)
         {
             readyToJump = false;
             Jump();
@@ -106,7 +103,6 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (sprinting && grounded)
         {
-            Debug.Log("Sprinting!");
             rb.AddForce(moveDirection.normalized * sprintSpeed * 10f, ForceMode.Force);
         }
         // In air
@@ -135,7 +131,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
-        Debug.Log("Jump");
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
