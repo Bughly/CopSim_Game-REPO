@@ -5,22 +5,40 @@ using UnityEngine;
 public class SlidingDoor : MonoBehaviour
 {
 
-    public Collider doorCollider;
+    // private bool isOpen = false;
+    // [Header("Sliding Config")]
+    // [SerializeField]
+    // private Vector3 slideDirection = Vector3.back;
+    // [SerializeField]
+    // private float slideAmount = 1.9f;
+    //
+    // private Vector3 startPosition;
+
+    public Animator slidingDoorAnim;
+    // private Collider doorCollider;
 
     // Start is called before the first frame update
     void Start()
     {
-        doorCollider = GetComponent<Collider>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        // doorCollider = GetComponent<Collider>();
     }
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Door Opened");
+        if (other.CompareTag("Player"))
+        {
+            slidingDoorAnim.SetTrigger("open");
+            Debug.Log("Door Open");
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            slidingDoorAnim.SetTrigger("close");
+            Debug.Log("Door Closed");
+        }
+        
     }
 }
